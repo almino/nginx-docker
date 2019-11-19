@@ -1,0 +1,22 @@
+# https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose#step-2-%E2%80%94-defining-the-web-server-configuration
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name  example.com www.example.com;
+    index index.html index.htm index.php;
+
+    root /app;
+
+    #error_page  404              /404.html;
+
+    include snippets/50x_errors.conf;
+    include snippets/protection_misc.conf;
+    include snippets/block-hidden-files.conf;
+    include snippets/available_http_methods.conf;
+
+    location ~ \.php$ {
+        include snippets/wordpress_security.conf;
+        include snippets/php.conf;
+    }
+}
