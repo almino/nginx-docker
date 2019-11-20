@@ -8,12 +8,21 @@ server {
 
     root /usr/share/nginx/html;
 
-    #error_page  404              /404.html;
+    # error_page 404 /404.html;
+    # location = /404.html {
+    #     root /usr/share/nginx;
+    #     internal;
+    # }
 
     include snippets/50x_errors.conf;
     include snippets/protection_misc.conf;
     include snippets/block-hidden-files.conf;
     include snippets/available_http_methods.conf;
+
+    if ($blacklisted != 1) {
+        rewrite ^/admin/?$ /wp-admin redirect;
+        rewrite ^/login/?$ /wp-login.php redirect;
+    }
 
     location ~ \.php$ {
         include snippets/wordpress_security.conf;
