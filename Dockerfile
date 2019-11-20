@@ -1,12 +1,14 @@
 FROM nginx:1.17
 
 ARG APT_FLAGS="-y --no-install-recommends"
+ARG NGINX_ROOT="/usr/share/nginx/html"
 
 # COPY default.conf /etc/nginx/conf.d/default.conf
 COPY ip_blacklist.sh /usr/local/bin/ip_blacklist
 
 RUN set -ex \
     # && mkdir -pv /etc/nginx/blacklist/ \
+    && mkdir -pv ${NGINX_ROOT} \
     && mkdir -pv /etc/nginx/domains/ \
     && mkdir -pv /etc/nginx/snippets/ \
     && chmod +x /usr/local/bin/ip_blacklist \
@@ -24,3 +26,5 @@ RUN set -ex \
 # COPY blacklist/ /etc/nginx/blacklist/
 COPY conf.d/ /etc/nginx/conf.d/
 COPY snippets/ /etc/nginx/snippets/
+
+WORKDIR ${NGINX_ROOT}

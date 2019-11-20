@@ -6,7 +6,7 @@ server {
     server_name  example.com www.example.com;
     index index.html index.htm index.php;
 
-    root /app;
+    root /usr/share/nginx/html;
 
     #error_page  404              /404.html;
 
