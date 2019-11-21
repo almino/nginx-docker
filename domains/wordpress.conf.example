@@ -3,7 +3,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name  example.com www.example.com;
+    server_name example.com www.example.com;
     index index.html index.htm index.php;
 
     root /usr/share/nginx/html;
